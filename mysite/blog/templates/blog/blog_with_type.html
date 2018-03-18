@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    {{blog_type.type_name}}
+{% endblock %}
+
+{% block content %}
+    {% for blog in blogs %}
+    <a href="{% url 'blog_detail' blog.pk %}">
+        <p>{{ blog.title }}</p>
+    </a>
+    <p>{{ blog.content|truncatechars:30 }}</p>
+        {% endfor %}
+    <p>{一共有{{ blogs|length}}篇博客}</p>
+{% endblock %}
+

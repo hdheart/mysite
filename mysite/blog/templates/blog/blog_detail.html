@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ blog.title }}
+{% endblock %}
+{# 加载静态文件 #}
+{% load staticfiles %}
+{% block header_extends %}
+<link rel="stylesheet" href="{% static 'blog.css'%}">
+{% endblock %}
+
+{% block content %}
+    <h3>{{blog.title}}</h3>
+    <p>作者:{{blog.author}}</p>
+    <p>发表日期:{{blog.created_time}}</p>
+    <div>分类:
+        <a href="{%url 'blog_with_type' blog.blog_type.pk%}">
+        {{blog.blog_type}}</a>
+    </div>
+    <p>{{blog.content}}</p>
+    <div class="blog-more">
+        <p>上一篇:
+            {% if previous_blog %}
+            <a href="{% url 'blog_detail' previous_blog.pk %}">{{ previous_blog.title }}</a>
+            {% else %}
+                nothing
+            {% endif %}
+            </p>
+        <p>下一篇:
+            {% if next_blog %}
+            <a href="{% url 'blog_detail' next_blog.pk %}">{{ next_blog.title }}</a>
+            {% else %}
+                nothing
+            {% endif %}
+            </p>
+    </div>
+
+{% endblock %}
+
+
+
